@@ -1,0 +1,2876 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/16/2016 11:40:46 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="KZORDSDEV01"
+  DTS:CreatorName="CORPORATE\ymuthakapalle"
+  DTS:DTSID="{79903B32-1A91-402A-925D-F042A098B770}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Sumanth Project"
+  DTS:PackageType="5"
+  DTS:VersionBuild="44"
+  DTS:VersionGUID="{DC819183-B555-4011-9149-8EFC0208B886}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{C69D6100-B9CE-4029-ADA8-A681C6ADB2F6}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[User::ExcelFilePath]+ @[User::FileName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ACER\Documents\HealthServices\Data Files\ ;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Destination]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{9FF8697B-BC17-4325-9EE0-D6065C61D32D}"
+      DTS:ObjectName="Excel Destination">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\ACER\Documents\HealthServices\Final Data.xls;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SQLDataBase]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{CD327889-1CF9-4096-8852-0BD3176CC260}"
+      DTS:ObjectName="SQLDataBase">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=HealthServices;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F7B677E3-00A5-4A8F-B99F-32D7E85F12A2}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExcelFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\ACER\Documents\HealthServices\Data Files\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1183A502-488E-4933-9231-88466AAFBF15}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FileName">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"> </DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{762DB2D0-3FD1-4E16-AA6D-EBA84C41B533}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{CD327889-1CF9-4096-8852-0BD3176CC260}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE Inpatient_PaymentSystem_Staging&#xA;GO&#xA;TRUNCATE TABLE Inpatient_PaymentSystem&#xA;GO&#xA;TRUNCATE TABLE Provider_Info&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{4FDE5263-08DC-4A7F-BD0B-67BF3296EB35}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{179A1799-EC85-4E5E-BA50-6C39048B7E70}"
+        DTS:ObjectName="{179A1799-EC85-4E5E-BA50-6C39048B7E70}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::ExcelFilePath]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="C:\Users\ACER\Documents\HealthServices\Data Files\" />
+            <FEFEProperty
+              FileSpec="*.*" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\Stage Data"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{688C62D5-D8D2-4F56-9EC6-00729D5A541D}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Stage Data"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\Stage Data\Derived Column"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Derived Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Stage Data\Derived Column.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Foreach Loop Container\Stage Data\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Output].Columns[FileName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Output].Columns[FileName]"
+                          name="FileName"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">@[User::FileName]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">@[User::FileName]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Output].Columns[RowLoaedDate]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Output].Columns[RowLoaedDate]"
+                          name="RowLoaedDate"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[GETDATE]()</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">GETDATE()</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Stage Data\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Stage Data\Excel Source"
+                  componentClassID="Microsoft.ExcelSource"
+                  contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Excel Source"
+                  name="Excel Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">Sheet1$</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mapping from parameters in the SQL command to variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Stage Data\Excel Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                      connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output]"
+                      name="Excel Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[DRG Definition]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[DRG Definition]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[DRG Definition]"
+                          name="DRG Definition"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Id]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider Id]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Id]"
+                          name="Provider Id"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider Name]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Name]"
+                          name="Provider Name"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Street Address]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider Street Address]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Street Address]"
+                          name="Provider Street Address"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider City]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider City]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider City]"
+                          name="Provider City"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider State]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider State]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider State]"
+                          name="Provider State"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Zip Code]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider Zip Code]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Zip Code]"
+                          name="Provider Zip Code"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Hospital Referral Region Description]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Hospital Referral Region Description]"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Hospital Referral Region Description]"
+                          name="Hospital Referral Region Description"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[ Total Discharges ]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[ Total Discharges ]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[ Total Discharges ]"
+                          name=" Total Discharges "
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[ Average Covered Charges ]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[ Average Covered Charges ]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[ Average Covered Charges ]"
+                          name=" Average Covered Charges "
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[ Average Total Payments ]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[ Average Total Payments ]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[ Average Total Payments ]"
+                          name=" Average Total Payments "
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Average Medicare Payments]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Average Medicare Payments]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Average Medicare Payments]"
+                          name="Average Medicare Payments"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[DRG Definition]"
+                          dataType="wstr"
+                          length="255"
+                          name="DRG Definition" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider Id]"
+                          dataType="r8"
+                          name="Provider Id" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider Name]"
+                          dataType="wstr"
+                          length="255"
+                          name="Provider Name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider Street Address]"
+                          dataType="wstr"
+                          length="255"
+                          name="Provider Street Address" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider City]"
+                          dataType="wstr"
+                          length="255"
+                          name="Provider City" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider State]"
+                          dataType="wstr"
+                          length="255"
+                          name="Provider State" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Provider Zip Code]"
+                          dataType="r8"
+                          name="Provider Zip Code" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Hospital Referral Region Description]"
+                          dataType="wstr"
+                          length="255"
+                          name="Hospital Referral Region Description" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[ Total Discharges ]"
+                          dataType="r8"
+                          name=" Total Discharges " />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[ Average Covered Charges ]"
+                          dataType="cy"
+                          name=" Average Covered Charges " />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[ Average Total Payments ]"
+                          dataType="cy"
+                          name=" Average Total Payments " />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].ExternalColumns[Average Medicare Payments]"
+                          dataType="cy"
+                          name="Average Medicare Payments" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output]"
+                      isErrorOut="true"
+                      name="Excel Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[DRG Definition]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[DRG Definition]"
+                          name="DRG Definition" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider Id]"
+                          dataType="r8"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider Id]"
+                          name="Provider Id" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider Name]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider Name]"
+                          name="Provider Name" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider Street Address]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider Street Address]"
+                          name="Provider Street Address" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider City]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider City]"
+                          name="Provider City" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider State]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider State]"
+                          name="Provider State" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider Zip Code]"
+                          dataType="r8"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Provider Zip Code]"
+                          name="Provider Zip Code" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Hospital Referral Region Description]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Hospital Referral Region Description]"
+                          name="Hospital Referral Region Description" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ Total Discharges ]"
+                          dataType="r8"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ Total Discharges ]"
+                          name=" Total Discharges " />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ Average Covered Charges ]"
+                          dataType="cy"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ Average Covered Charges ]"
+                          name=" Average Covered Charges " />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ Average Total Payments ]"
+                          dataType="cy"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ Average Total Payments ]"
+                          name=" Average Total Payments " />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Average Medicare Payments]"
+                          dataType="cy"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[Average Medicare Payments]"
+                          name="Average Medicare Payments" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Stage Excel Data"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Inpatient_PaymentSystem_Staging]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[SQLDataBase]"
+                      connectionManagerRefId="Package.ConnectionManagers[SQLDataBase]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[DRG Definition]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="DRG Definition"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[DRG_Definition]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[DRG Definition]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[Provider Id]"
+                          cachedDataType="r8"
+                          cachedName="Provider Id"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderID]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Id]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[Provider Name]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Provider Name"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderName]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Name]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[Provider Street Address]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Provider Street Address"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderStreetAddress]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Street Address]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[Provider City]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Provider City"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderCity]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider City]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[Provider State]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Provider State"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderState]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider State]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[Provider Zip Code]"
+                          cachedDataType="r8"
+                          cachedName="Provider Zip Code"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderZipCode]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Provider Zip Code]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[Hospital Referral Region Description]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="Hospital Referral Region Description"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[HospitalRegion]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Hospital Referral Region Description]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[ Total Discharges ]"
+                          cachedDataType="r8"
+                          cachedName=" Total Discharges "
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[TotalDischarges]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[ Total Discharges ]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[ Average Covered Charges ]"
+                          cachedDataType="cy"
+                          cachedName=" Average Covered Charges "
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[AvgCoveredCharges]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[ Average Covered Charges ]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[ Average Total Payments ]"
+                          cachedDataType="cy"
+                          cachedName=" Average Total Payments "
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[AvgTotalPayments]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[ Average Total Payments ]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[Average Medicare Payments]"
+                          cachedDataType="cy"
+                          cachedName="Average Medicare Payments"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[AvgMedicarePayments]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output].Columns[Average Medicare Payments]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[FileName]"
+                          cachedDataType="wstr"
+                          cachedLength="255"
+                          cachedName="FileName"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[FileName]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Output].Columns[FileName]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].Columns[RowLoaedDate]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="RowLoaedDate"
+                          externalMetadataColumnId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[RowLoadedDate]"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Output].Columns[RowLoaedDate]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[DRG_Definition]"
+                          dataType="wstr"
+                          length="255"
+                          name="DRG_Definition" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderID]"
+                          dataType="i4"
+                          name="ProviderID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderName]"
+                          dataType="wstr"
+                          length="255"
+                          name="ProviderName" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderStreetAddress]"
+                          dataType="wstr"
+                          length="255"
+                          name="ProviderStreetAddress" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderCity]"
+                          dataType="wstr"
+                          length="255"
+                          name="ProviderCity" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderState]"
+                          dataType="wstr"
+                          length="255"
+                          name="ProviderState" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[ProviderZipCode]"
+                          dataType="wstr"
+                          length="10"
+                          name="ProviderZipCode" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[HospitalRegion]"
+                          dataType="wstr"
+                          length="255"
+                          name="HospitalRegion" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[TotalDischarges]"
+                          dataType="i4"
+                          name="TotalDischarges" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[AvgCoveredCharges]"
+                          dataType="numeric"
+                          name="AvgCoveredCharges"
+                          precision="10"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[AvgTotalPayments]"
+                          dataType="numeric"
+                          name="AvgTotalPayments"
+                          precision="10"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[AvgMedicarePayments]"
+                          dataType="numeric"
+                          name="AvgMedicarePayments"
+                          precision="10"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[FileName]"
+                          dataType="wstr"
+                          length="255"
+                          name="FileName" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input].ExternalColumns[RowLoadedDate]"
+                          dataType="dbTimeStamp"
+                          name="RowLoadedDate" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\Stage Data.Paths[Derived Column Output]"
+                  endId="Package\Foreach Loop Container\Stage Data\Stage Excel Data.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Foreach Loop Container\Stage Data\Derived Column.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Foreach Loop Container\Stage Data.Paths[Excel Source Output]"
+                  endId="Package\Foreach Loop Container\Stage Data\Derived Column.Inputs[Derived Column Input]"
+                  name="Excel Source Output"
+                  startId="Package\Foreach Loop Container\Stage Data\Excel Source.Outputs[Excel Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{A780FA11-1056-463E-8A3E-8E50A752C44E}"
+          DTS:ObjectName="{A780FA11-1056-463E-8A3E-8E50A752C44E}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::FileName" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Inpatient Information"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{4AF46DE2-7781-4524-8F7C-7852C502E1FF}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Inpatient Information"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Inpatient Information\Load into Inpatient System"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load into Inpatient System"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Inpatient_PaymentSystem]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Inpatient Information\Load into Inpatient System.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SQLDataBase]"
+                  connectionManagerRefId="Package.ConnectionManagers[SQLDataBase]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].Columns[DRG_Definition]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DRG_Definition"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[DRG_Definition]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[DRG_Definition]" />
+                    <inputColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].Columns[ProviderID]"
+                      cachedDataType="i4"
+                      cachedName="ProviderID"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[ProviderID]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[ProviderID]" />
+                    <inputColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].Columns[TotalDischarges]"
+                      cachedDataType="i4"
+                      cachedName="TotalDischarges"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[TotalDischarges]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[TotalDischarges]" />
+                    <inputColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].Columns[AvgCoveredCharges]"
+                      cachedDataType="numeric"
+                      cachedName="AvgCoveredCharges"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[AvgCoveredCharges]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[AvgCoveredCharges]" />
+                    <inputColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].Columns[AvgTotalPayments]"
+                      cachedDataType="numeric"
+                      cachedName="AvgTotalPayments"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[AvgTotalPayments]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[AvgTotalPayments]" />
+                    <inputColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].Columns[AvgMedicarePayments]"
+                      cachedDataType="numeric"
+                      cachedName="AvgMedicarePayments"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[AvgMedicarePayments]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[AvgMedicarePayments]" />
+                    <inputColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].Columns[RowLoadedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="RowLoadedDate"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[RowLoadedDate]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[RowLoadedDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[DRG_Definition]"
+                      dataType="wstr"
+                      length="255"
+                      name="DRG_Definition" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[ProviderID]"
+                      dataType="i4"
+                      name="ProviderID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[TotalDischarges]"
+                      dataType="i4"
+                      name="TotalDischarges" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[AvgCoveredCharges]"
+                      dataType="numeric"
+                      name="AvgCoveredCharges"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[AvgTotalPayments]"
+                      dataType="numeric"
+                      name="AvgTotalPayments"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[AvgMedicarePayments]"
+                      dataType="numeric"
+                      name="AvgMedicarePayments"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input].ExternalColumns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      name="RowLoadedDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Inpatient Information\Load into Inpatient System.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Inpatient Information\Load into Inpatient System.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Load into Inpatient System.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Inpatient Information\Load into Inpatient System.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Inpatient Information\Select Data from Staging"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Select Data from Staging"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT		DISTINCT		
+			DRG_Definition
+			,ProviderID
+			,TotalDischarges
+			,AvgCoveredCharges
+			,AvgTotalPayments
+			,AvgMedicarePayments
+			,RowLoadedDate
+FROM		dbo.Inpatient_PaymentSystem_Staging</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Inpatient Information\Select Data from Staging.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SQLDataBase]"
+                  connectionManagerRefId="Package.ConnectionManagers[SQLDataBase]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[DRG_Definition]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DRG_Definition]"
+                      length="255"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[DRG_Definition]"
+                      name="DRG_Definition"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[ProviderID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderID]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[ProviderID]"
+                      name="ProviderID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[TotalDischarges]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[TotalDischarges]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[TotalDischarges]"
+                      name="TotalDischarges"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[AvgCoveredCharges]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[AvgCoveredCharges]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[AvgCoveredCharges]"
+                      name="AvgCoveredCharges"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[AvgTotalPayments]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[AvgTotalPayments]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[AvgTotalPayments]"
+                      name="AvgTotalPayments"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[AvgMedicarePayments]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[AvgMedicarePayments]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[AvgMedicarePayments]"
+                      name="AvgMedicarePayments"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[RowLoadedDate]"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].Columns[RowLoadedDate]"
+                      name="RowLoadedDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[DRG_Definition]"
+                      dataType="wstr"
+                      length="255"
+                      name="DRG_Definition" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderID]"
+                      dataType="i4"
+                      name="ProviderID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[TotalDischarges]"
+                      dataType="i4"
+                      name="TotalDischarges" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[AvgCoveredCharges]"
+                      dataType="numeric"
+                      name="AvgCoveredCharges"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[AvgTotalPayments]"
+                      dataType="numeric"
+                      name="AvgTotalPayments"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[AvgMedicarePayments]"
+                      dataType="numeric"
+                      name="AvgMedicarePayments"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output].ExternalColumns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      name="RowLoadedDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[DRG_Definition]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[DRG_Definition]"
+                      name="DRG_Definition" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderID]"
+                      dataType="i4"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderID]"
+                      name="ProviderID" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[TotalDischarges]"
+                      dataType="i4"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[TotalDischarges]"
+                      name="TotalDischarges" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[AvgCoveredCharges]"
+                      dataType="numeric"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[AvgCoveredCharges]"
+                      name="AvgCoveredCharges"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[AvgTotalPayments]"
+                      dataType="numeric"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[AvgTotalPayments]"
+                      name="AvgTotalPayments"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[AvgMedicarePayments]"
+                      dataType="numeric"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[AvgMedicarePayments]"
+                      name="AvgMedicarePayments"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[RowLoadedDate]"
+                      name="RowLoadedDate" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Inpatient Information.Paths[OLE DB Source Output]"
+              endId="Package\Load Inpatient Information\Load into Inpatient System.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Inpatient Information\Select Data from Staging.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Provider Information"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3CE148BF-8B55-4AC8-B5F8-3412D1B1C9B4}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Provider Information"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Provider Information\Load Provider Information"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load Provider Information"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Provider_Info]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Provider Information\Load Provider Information.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SQLDataBase]"
+                  connectionManagerRefId="Package.ConnectionManagers[SQLDataBase]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].Columns[ProviderID]"
+                      cachedDataType="i4"
+                      cachedName="ProviderID"
+                      externalMetadataColumnId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderID]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderID]" />
+                    <inputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].Columns[ProviderName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ProviderName"
+                      externalMetadataColumnId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderName]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderName]" />
+                    <inputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].Columns[ProviderStreetAddress]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ProviderStreetAddress"
+                      externalMetadataColumnId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderStreetAddress]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderStreetAddress]" />
+                    <inputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].Columns[ProviderCity]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ProviderCity"
+                      externalMetadataColumnId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderCity]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderCity]" />
+                    <inputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].Columns[ProviderState]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ProviderState"
+                      externalMetadataColumnId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderState]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderState]" />
+                    <inputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].Columns[ProviderZipCode]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ProviderZipCode"
+                      externalMetadataColumnId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderZipCode]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderZipCode]" />
+                    <inputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].Columns[HospitalRegion]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="HospitalRegion"
+                      externalMetadataColumnId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[HospitalRegion]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[HospitalRegion]" />
+                    <inputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].Columns[RowLoadedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="RowLoadedDate"
+                      externalMetadataColumnId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[RowLoadedDate]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[RowLoadedDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderID]"
+                      dataType="i4"
+                      name="ProviderID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderName]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderStreetAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderStreetAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderCity]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderCity" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderState]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[ProviderZipCode]"
+                      dataType="wstr"
+                      length="10"
+                      name="ProviderZipCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[HospitalRegion]"
+                      dataType="wstr"
+                      length="255"
+                      name="HospitalRegion" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input].ExternalColumns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      name="RowLoadedDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Provider Information\Load Provider Information.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Provider Information\Load Provider Information.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Load Provider Information.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Provider Information\Load Provider Information.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Provider Information\Select Provide Information from Staging"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Select Provide Information from Staging"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT		DISTINCT		
+		ProviderID
+		,ProviderName
+		,ProviderStreetAddress
+		,ProviderCity
+		,ProviderState
+		,ProviderZipCode
+		,HospitalRegion
+			,RowLoadedDate
+FROM		dbo.Inpatient_PaymentSystem_Staging</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Provider Information\Select Provide Information from Staging.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SQLDataBase]"
+                  connectionManagerRefId="Package.ConnectionManagers[SQLDataBase]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderID]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderID]"
+                      name="ProviderID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderName]"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderName]"
+                      name="ProviderName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderStreetAddress]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderStreetAddress]"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderStreetAddress]"
+                      name="ProviderStreetAddress"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderCity]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderCity]"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderCity]"
+                      name="ProviderCity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderState]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderState]"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderState]"
+                      name="ProviderState"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderZipCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderZipCode]"
+                      length="10"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[ProviderZipCode]"
+                      name="ProviderZipCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[HospitalRegion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[HospitalRegion]"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[HospitalRegion]"
+                      name="HospitalRegion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[RowLoadedDate]"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].Columns[RowLoadedDate]"
+                      name="RowLoadedDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderID]"
+                      dataType="i4"
+                      name="ProviderID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderName]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderStreetAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderStreetAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderCity]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderCity" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderState]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[ProviderZipCode]"
+                      dataType="wstr"
+                      length="10"
+                      name="ProviderZipCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[HospitalRegion]"
+                      dataType="wstr"
+                      length="255"
+                      name="HospitalRegion" />
+                    <externalMetadataColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output].ExternalColumns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      name="RowLoadedDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderID]"
+                      dataType="i4"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderID]"
+                      name="ProviderID" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderName]"
+                      name="ProviderName" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderStreetAddress]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderStreetAddress]"
+                      name="ProviderStreetAddress" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderCity]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderCity]"
+                      name="ProviderCity" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderState]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderState]"
+                      name="ProviderState" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderZipCode]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ProviderZipCode]"
+                      name="ProviderZipCode" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[HospitalRegion]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[HospitalRegion]"
+                      name="HospitalRegion" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[RowLoadedDate]"
+                      name="RowLoadedDate" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Provider Information.Paths[OLE DB Source Output]"
+              endId="Package\Load Provider Information\Load Provider Information.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Provider Information\Select Provide Information from Staging.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Staging data into Excel"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{6346BE36-DE37-4920-87A6-7C6F91BF1A66}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Staging data into Excel"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Staging data into Excel\Excel Destination"
+              componentClassID="Microsoft.ExcelDestination"
+              contactInfo="Excel Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Excel Destination"
+              name="Excel Destination"
+              usesDispositions="true">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Excel_Destination</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging data into Excel\Excel Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Destination]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Destination]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Excel Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[DRG_Definition]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="DRG_Definition"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[DRG_Definition]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[DRG_Definition]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[ProviderID]"
+                      cachedDataType="i4"
+                      cachedName="ProviderID"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderID]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderID]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[ProviderName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ProviderName"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderName]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderName]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[ProviderStreetAddress]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ProviderStreetAddress"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderStreetAddress]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderStreetAddress]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[ProviderCity]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ProviderCity"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderCity]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderCity]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[ProviderState]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ProviderState"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderState]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderState]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[ProviderZipCode]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="ProviderZipCode"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderZipCode]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderZipCode]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[HospitalRegion]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="HospitalRegion"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[HospitalRegion]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[HospitalRegion]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[TotalDischarges]"
+                      cachedDataType="i4"
+                      cachedName="TotalDischarges"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[TotalDischarges]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[TotalDischarges]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[AvgCoveredCharges]"
+                      cachedDataType="numeric"
+                      cachedName="AvgCoveredCharges"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[AvgCoveredCharges]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[AvgCoveredCharges]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[AvgTotalPayments]"
+                      cachedDataType="numeric"
+                      cachedName="AvgTotalPayments"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[AvgTotalPayments]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[AvgTotalPayments]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[AvgMedicarePayments]"
+                      cachedDataType="numeric"
+                      cachedName="AvgMedicarePayments"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[AvgMedicarePayments]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[AvgMedicarePayments]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[FileName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FileName"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[FileName]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[FileName]" />
+                    <inputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].Columns[RowLoadedDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="RowLoadedDate"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[RowLoadedDate]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[RowLoadedDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[DRG_Definition]"
+                      dataType="wstr"
+                      length="255"
+                      name="DRG_Definition" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderID]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderName]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderStreetAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderStreetAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderCity]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderCity" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderState]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[ProviderZipCode]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderZipCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[HospitalRegion]"
+                      dataType="wstr"
+                      length="255"
+                      name="HospitalRegion" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[TotalDischarges]"
+                      dataType="wstr"
+                      length="255"
+                      name="TotalDischarges" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[AvgCoveredCharges]"
+                      dataType="wstr"
+                      length="255"
+                      name="AvgCoveredCharges" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[AvgTotalPayments]"
+                      dataType="wstr"
+                      length="255"
+                      name="AvgTotalPayments" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[AvgMedicarePayments]"
+                      dataType="wstr"
+                      length="255"
+                      name="AvgMedicarePayments" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[FileName]"
+                      dataType="wstr"
+                      length="255"
+                      name="FileName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input].ExternalColumns[RowLoadedDate]"
+                      dataType="wstr"
+                      length="255"
+                      name="RowLoadedDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Staging data into Excel\Excel Destination.Outputs[Excel Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Excel Destination Error Output"
+                  synchronousInputId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Outputs[Excel Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging data into Excel\Excel Destination.Outputs[Excel Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Excel Destination.Outputs[Excel Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging data into Excel\Excel Destination.Outputs[Excel Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Staging data into Excel\Read Data from Staging table"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Read Data from Staging table"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Inpatient_PaymentSystem_Staging]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Staging data into Excel\Read Data from Staging table.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[SQLDataBase]"
+                  connectionManagerRefId="Package.ConnectionManagers[SQLDataBase]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[DRG_Definition]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[DRG_Definition]"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[DRG_Definition]"
+                      name="DRG_Definition"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderID]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderID]"
+                      name="ProviderID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderName]"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderName]"
+                      name="ProviderName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderStreetAddress]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderStreetAddress]"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderStreetAddress]"
+                      name="ProviderStreetAddress"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderCity]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderCity]"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderCity]"
+                      name="ProviderCity"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderState]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderState]"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderState]"
+                      name="ProviderState"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderZipCode]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderZipCode]"
+                      length="10"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[ProviderZipCode]"
+                      name="ProviderZipCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[HospitalRegion]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[HospitalRegion]"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[HospitalRegion]"
+                      name="HospitalRegion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[TotalDischarges]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[TotalDischarges]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[TotalDischarges]"
+                      name="TotalDischarges"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[AvgCoveredCharges]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[AvgCoveredCharges]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[AvgCoveredCharges]"
+                      name="AvgCoveredCharges"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[AvgTotalPayments]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[AvgTotalPayments]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[AvgTotalPayments]"
+                      name="AvgTotalPayments"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[AvgMedicarePayments]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[AvgMedicarePayments]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[AvgMedicarePayments]"
+                      name="AvgMedicarePayments"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[FileName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[FileName]"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[FileName]"
+                      name="FileName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[RowLoadedDate]"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].Columns[RowLoadedDate]"
+                      name="RowLoadedDate"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[DRG_Definition]"
+                      dataType="wstr"
+                      length="255"
+                      name="DRG_Definition" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderID]"
+                      dataType="i4"
+                      name="ProviderID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderName]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderStreetAddress]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderStreetAddress" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderCity]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderCity" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderState]"
+                      dataType="wstr"
+                      length="255"
+                      name="ProviderState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[ProviderZipCode]"
+                      dataType="wstr"
+                      length="10"
+                      name="ProviderZipCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[HospitalRegion]"
+                      dataType="wstr"
+                      length="255"
+                      name="HospitalRegion" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[TotalDischarges]"
+                      dataType="i4"
+                      name="TotalDischarges" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[AvgCoveredCharges]"
+                      dataType="numeric"
+                      name="AvgCoveredCharges"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[AvgTotalPayments]"
+                      dataType="numeric"
+                      name="AvgTotalPayments"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[AvgMedicarePayments]"
+                      dataType="numeric"
+                      name="AvgMedicarePayments"
+                      precision="10"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[FileName]"
+                      dataType="wstr"
+                      length="255"
+                      name="FileName" />
+                    <externalMetadataColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output].ExternalColumns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      name="RowLoadedDate" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[DRG_Definition]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[DRG_Definition]"
+                      name="DRG_Definition" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderID]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderID]"
+                      name="ProviderID" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderName]"
+                      name="ProviderName" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderStreetAddress]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderStreetAddress]"
+                      name="ProviderStreetAddress" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderCity]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderCity]"
+                      name="ProviderCity" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderState]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderState]"
+                      name="ProviderState" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderZipCode]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ProviderZipCode]"
+                      name="ProviderZipCode" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[HospitalRegion]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[HospitalRegion]"
+                      name="HospitalRegion" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[TotalDischarges]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[TotalDischarges]"
+                      name="TotalDischarges" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[AvgCoveredCharges]"
+                      dataType="numeric"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[AvgCoveredCharges]"
+                      name="AvgCoveredCharges"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[AvgTotalPayments]"
+                      dataType="numeric"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[AvgTotalPayments]"
+                      name="AvgTotalPayments"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[AvgMedicarePayments]"
+                      dataType="numeric"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[AvgMedicarePayments]"
+                      name="AvgMedicarePayments"
+                      precision="10"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[FileName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[FileName]"
+                      name="FileName" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[RowLoadedDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[RowLoadedDate]"
+                      name="RowLoadedDate" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Staging data into Excel.Paths[OLE DB Source Output]"
+              endId="Package\Load Staging data into Excel\Excel Destination.Inputs[Excel Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Staging data into Excel\Read Data from Staging table.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{FDB19773-24AA-4817-9211-09C5A1B75543}"
+      DTS:From="Package\Foreach Loop Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Inpatient Information" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{355B0110-4147-4836-AAB3-B444A3AD4F4C}"
+      DTS:From="Package\Load Inpatient Information"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load Provider Information" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{90A25320-388E-4DD4-A0AF-07AE6764DBA1}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Foreach Loop Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{6E3E70A9-B334-4D69-B309-654E30ADF76B}"
+      DTS:From="Package\Load Provider Information"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Load Staging data into Excel" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Execute SQL Task"
+          TopLeft="213,16" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\Foreach Loop Container\Stage Data"
+          TopLeft="51,13" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="222,86"
+          Size="222,129"
+          Id="Package\Foreach Loop Container"
+          TopLeft="188,124" />
+        <NodeLayout
+          Size="206,42"
+          Id="Package\Load Inpatient Information"
+          TopLeft="200,286" />
+        <NodeLayout
+          Size="202,42"
+          Id="Package\Load Provider Information"
+          TopLeft="201,367" />
+        <NodeLayout
+          Size="215,42"
+          Id="Package\Load Staging data into Excel"
+          TopLeft="215,450" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="301,253">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="302.5,328">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39"
+              Start="0,0"
+              End="0,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="297.25,58">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66"
+              Start="0,0"
+              End="0,58.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="302,409">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="20.5,41"
+              Start="0,0"
+              End="20.5,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.5"
+                    Point2="0,20.5"
+                    Point3="4,20.5" />
+                  <mssgle:LineSegment
+                    End="16.5,20.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="16.5,20.5"
+                    Point2="20.5,20.5"
+                    Point3="20.5,24.5" />
+                  <mssgle:LineSegment
+                    End="20.5,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container\Stage Data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="159,42"
+          Id="Package\Foreach Loop Container\Stage Data\Stage Excel Data"
+          TopLeft="241,252" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Foreach Loop Container\Stage Data\Derived Column"
+          TopLeft="240,135" />
+        <NodeLayout
+          Size="139,42"
+          Id="Package\Foreach Loop Container\Stage Data\Excel Source"
+          TopLeft="238,50" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Stage Data.Paths[Excel Source Output]"
+          TopLeft="307.5,92">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.5,43"
+              Start="0,0"
+              End="9.5,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.5"
+                    Point2="0,21.5"
+                    Point3="4,21.5" />
+                  <mssgle:LineSegment
+                    End="5.5,21.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.5,21.5"
+                    Point2="9.5,21.5"
+                    Point3="9.5,25.5" />
+                  <mssgle:LineSegment
+                    End="9.5,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\Stage Data.Paths[Derived Column Output]"
+          TopLeft="318.75,177">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75"
+              Start="0,0"
+              End="0,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container\Stage Data\Stage Excel Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container\Stage Data\Excel Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Inpatient Information">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="196,42"
+          Id="Package\Load Inpatient Information\Select Data from Staging"
+          TopLeft="270,15" />
+        <NodeLayout
+          Size="206,42"
+          Id="Package\Load Inpatient Information\Load into Inpatient System"
+          TopLeft="262,175" />
+        <EdgeLayout
+          Id="Package\Load Inpatient Information.Paths[OLE DB Source Output]"
+          TopLeft="366.5,57">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,118"
+              Start="0,0"
+              End="0,110.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,110.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Load Provider Information">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="202,42"
+          Id="Package\Load Provider Information\Load Provider Information"
+          TopLeft="275,239" />
+        <NodeLayout
+          Size="268,42"
+          Id="Package\Load Provider Information\Select Provide Information from Staging"
+          TopLeft="275,98" />
+        <EdgeLayout
+          Id="Package\Load Provider Information.Paths[OLE DB Source Output]"
+          TopLeft="409,140">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-33,99"
+              Start="0,0"
+              End="-33,91.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,45.5"
+                    Point2="0,49.5"
+                    Point3="-4,49.5" />
+                  <mssgle:LineSegment
+                    End="-29,49.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-29,49.5"
+                    Point2="-33,49.5"
+                    Point3="-33,53.5" />
+                  <mssgle:LineSegment
+                    End="-33,91.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Load Staging data into Excel">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="220,42"
+          Id="Package\Load Staging data into Excel\Read Data from Staging table"
+          TopLeft="263,90" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\Load Staging data into Excel\Excel Destination"
+          TopLeft="285,197" />
+        <EdgeLayout
+          Id="Package\Load Staging data into Excel.Paths[OLE DB Source Output]"
+          TopLeft="369.25,132">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging data into Excel\Excel Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Staging data into Excel\Read Data from Staging table">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
